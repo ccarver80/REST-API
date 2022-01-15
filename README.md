@@ -1,4 +1,4 @@
-# REST API (TeamTreeHouse Project #9)
+# REST API (Team TreeHouse Project #9)
 ### -----Backend REST API using Express and Sequelize.
 
 # Introduction
