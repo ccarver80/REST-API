@@ -1,5 +1,5 @@
 # REST API (TeamTreeHouse Project #9)
-## -Backend REST API using Express and Sequelize.
+### -----Backend REST API using Express and Sequelize.
 
 # Introduction
 This is project #9 for my full stack tech degree thru Team Treehouse. 
@@ -8,7 +8,7 @@ I used Postman to verify my results.
 
 
 # Technologies Used:
-**JavaScript**
-**Express**
+**JavaScript,**
+**Express,**
 **Sequelize**
 
