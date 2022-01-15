@@ -4,7 +4,7 @@ const users = require("../models").User;
 const auth = require("basic-auth");
 const bcrypt = require("bcryptjs");
 
-router.use(express.json()); 
+router.use(express.json());
 
 router.get("/api/users", async (req, res) => {
   const creds = auth(req);
@@ -31,18 +31,36 @@ router.get("/api/users", async (req, res) => {
     }
   } catch (err) {
     res.json({
-        message: "Something went wrong with the server:", 
-    })
+      message: "Something went wrong with the server:",
+    });
   }
 });
 
-
 //----------------USER POST ROUTE -------------------//
 
-router.post('/api/users', async(req, res) => {
-    const newUser = await users.create(req.body)
-    res.location("/")
-    res.sendStatus(201); 
-})
+router.post("/api/users", async (req, res) => {
+  try {
+    const checkUser = await users.findOne({
+      where: {
+        emailAddress: req.body.emailAddress,
+      },
+    });
+    
+    if (!checkUser) {  //if user DOSE NOT exist
+      const newUser = await users.create(req.body);
+      res.location("/");
+      res.sendStatus(201);
+    } else {
+      res.json({
+        message: "This user may already exist!",
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something went wrong",
+    });
+    console.log(err);
+  }
+});
 
 module.exports = router;
