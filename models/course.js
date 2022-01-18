@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Course.belongsTo(models.User)
+      Course.belongsTo(models.User, {foreignKey: 'userId'})
     }
   };
   Course.init({
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false, 
       validate: {
         notNull: {
@@ -39,9 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     materialsNeeded: {
       type: DataTypes.STRING,
     }, 
-    userId: {
-      type: DataTypes.STRING,
-    }, 
+   
   }, {
     sequelize,
     modelName: 'Course',

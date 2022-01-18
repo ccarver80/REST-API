@@ -72,7 +72,7 @@ router.put("/api/courses/:id", authUser, async (req, res) => {
     if (findCourse) {
       //----IF ITS A VALID COURSE--//
       const updateCourse = await findCourse.update(req.body);
-      res.status(204);
+      res.sendStatus(204);
     } else {
       res.json({
         message: "Could not find course",
@@ -98,7 +98,7 @@ router.delete("/api/courses/:id", authUser, async (req, res) => {
 
     if (findCourse) {
       const deleteCourse = await findCourse.destroy();
-      res.status(204);
+      res.sendStatus(204);
     } else {
       res.json({
         message: "This course may not exisit",
