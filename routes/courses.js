@@ -49,7 +49,7 @@ router.post("/api/courses/", authUser, async (req, res) => {
    
       const newCourse = await courses.create(req.body);
       res.location("/api/course/" + newCourse.id);
-      res.sendStatus(201);
+      res.status(201);
     
     
   } catch (err) {
