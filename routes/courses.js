@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const courses = require("../models").Course;
 const { authUser } = require("../middleware/authenticate");
+const users = require('../models').User
 
 router.use(express.json());
 
@@ -9,7 +10,14 @@ router.use(express.json());
 
 router.get("/api/courses", async (req, res) => {
   try {
-    const allCourses = await courses.findAll();
+    const allCourses = await courses.findAll({
+      include: {
+        model: users,
+        attributes: {
+          exclude: ['id', 'password', 'createdAt', 'updatedAt']
+        }
+      }
+    });
     res.json(allCourses);
   } catch (err) {
     res.json({
@@ -25,9 +33,19 @@ router.get("/api/courses/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
+      include: {
+        model: users,
+        attributes: {
+          exclude: ['id', 'password', 'createdAt', 'updatedAt']
+        }
+      }
     });
     if (singleCourse) {
-      res.json(singleCourse);
+      
+
+      res.status(200).json(singleCourse);
+
+
     } else {
       res.status(404);
       res.json({
@@ -50,6 +68,7 @@ router.post("/api/courses/", authUser, async (req, res) => {
       const newCourse = await courses.create(req.body);
       res.location("/api/course/" + newCourse.id);
       res.status(201);
+      res.end();
     
     
   } catch (err) {
